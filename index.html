@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Analytics Navigation Guide for Spotlight Data</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface-alt: #F0EDE7;
+    --border: #E2DDD5;
+    --border-strong: #C8C3BA;
+    --text-primary: #1A1714;
+    --text-secondary: #6B6560;
+    --text-hint: #A09B95;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --teal-mid: #1D9E75;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --amber: #854F0B;
+    --amber-light: #FAEEDA;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --accent: #1D9E75;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem 4rem;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+  .pill-ga { background: var(--amber-light); color: var(--amber); }
+  .pill-sprint { background: var(--surface-alt); color: var(--text-secondary); border: 0.5px solid var(--border); }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .progress-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    transition: opacity 0.2s;
+  }
+
+  .progress-track {
+    height: 5px;
+    background: var(--surface-alt);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 0.5px solid var(--border);
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.75rem;
+    padding-left: 2px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-hint);
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* ── Step ── */
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, opacity 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .step:hover { background: #FAFAF8; border-color: var(--border-strong); }
+  .step:active { transform: scale(0.995); }
+
+  .step.done {
+    opacity: 0.5;
+  }
+  .step.done .step-title {
+    text-decoration: line-through;
+    text-decoration-color: var(--text-hint);
+  }
+
+  .checkbox-wrap {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .checkbox {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg);
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .step.done .checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .check-svg { display: none; }
+  .step.done .check-svg { display: block; }
+
+  .step-body { flex: 1; min-width: 0; }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .step-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 99px;
+  }
+  .tag-nav { background: var(--teal-light); color: var(--teal); }
+  .tag-report { background: var(--blue-light); color: var(--blue); }
+  .tag-event { background: var(--amber-light); color: var(--amber); }
+  .tag-filter { background: var(--purple-light); color: var(--purple); }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-hint);
+    margin-left: auto;
+  }
+
+  /* ── Note card ── */
+  .note-card {
+    background: var(--amber-light);
+    border: 0.5px solid #FAC775;
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--amber);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .note-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Footer actions ── */
+  .footer-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn:hover { background: var(--surface-alt); color: var(--text-primary); }
+
+  .btn-primary {
+    background: var(--text-primary);
+    color: #fff;
+    border-color: var(--text-primary);
+  }
+  .btn-primary:hover { background: #333; color: #fff; }
+
+  /* ── Completion state ── */
+  .complete-banner {
+    display: none;
+    background: var(--teal-light);
+    border: 0.5px solid #9FE1CB;
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  .complete-banner.visible { display: block; }
+  .complete-banner p { font-size: 14px; color: var(--teal); font-weight: 500; }
+  .complete-banner span { font-size: 13px; color: #0F6E56; opacity: 0.8; }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .ref-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+  }
+
+  .ref-card-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    margin-bottom: 12px;
+  }
+
+  .def-item {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .def-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--teal);
+    background: var(--teal-light);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .def-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .def-param-grid { display: flex; flex-direction: column; gap: 0; }
+
+  .def-param-row {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .def-param-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--purple);
+    background: var(--purple-light);
+    padding: 1px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .def-param-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .def-param-desc code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--surface-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 1.5rem 1rem 3rem; }
+    h1 { font-size: 22px; }
+    .step { padding: 12px 14px; }
+    .ref-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <h1>Google Analytics Navigation Guide for Spotlight Data</h1>
+
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-label" id="prog-label">0 of 14 steps complete</span>
+        <span class="progress-pct" id="prog-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="bar"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="note-card">
+    <span class="note-icon">⚑</span>
+    <span>The max data retention policy for Google Analytics is <strong>14 months</strong>. Anything beyond 14 months cannot be pulled. Please advise if you would like certain views or reports to be stored beyond a 14-month period.</span>
+  </div>
+
+  <!-- Section 0 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">00</span>
+      <span class="section-title">Before you begin — understanding definitions</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="step" data-id="pre0" onclick="togglePre('pre0')">
+      <div class="checkbox-wrap">
+        <div class="checkbox" id="cb-pre0">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Review the GA4 custom events Confluence page</div>
+        <div class="step-desc">Familiarise yourself with the event definitions and parameters before navigating GA4. The page covers event names, custom dimensions, explorations, and cardinality considerations.</div>
+        <div class="step-footer">
+          <a href="https://opensupplyhub.atlassian.net/wiki/spaces/SD/pages/1221328897/GA4+custom+events+Spotlight+partner+links+contributor+links+and+tracking+consent" target="_blank" style="font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; padding: 2px 9px; border-radius: 99px; background: var(--teal-light); color: var(--teal); text-decoration: none; letter-spacing: 0.04em;">Open Confluence ↗</a>
+          <span class="step-num">00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side-by-side reference cards -->
+    <div class="ref-grid">
+
+      <div class="ref-card">
+        <div class="ref-card-title">Custom event definitions key</div>
+        <div class="def-item">
+          <div class="def-code">LOCATION_PARTNER_PROFILE_LINK_CLICK</div>
+          <div class="def-desc">Spotlight link to an <strong>OS Hub contributor profile</strong> URL, from a production location page.</div>
+        </div>
+        <div class="def-item">
+          <div class="def-code">LOCATION_PARTNER_EXTERNAL_LINK_CLICK</div>
+          <div class="def-desc">A <strong>partner-supplied external link</strong> in the Spotlight section — a URL the partner contributed via their OS Hub collaboration.</div>
+        </div>
+        <div class="def-item" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+          <div class="def-code">CONTRIBUTOR_EXTERNAL_WEBSITE_LINK_CLICK</div>
+          <div class="def-desc">A <strong>contributor's external website link</strong> on a Contributor profile page.</div>
+        </div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-card-title">Shared event parameters</div>
+        <div class="def-param-row"><span class="def-param-name">destination_url</span><span class="def-param-desc">Full URL clicked</span></div>
+        <div class="def-param-row"><span class="def-param-name">destination_domain</span><span class="def-param-desc">Hostname/domain only</span></div>
+        <div class="def-param-row"><span class="def-param-name">contributor_name</span><span class="def-param-desc">Name of the contributor</span></div>
+        <div class="def-param-row"><span class="def-param-name">contributor_user_id</span><span class="def-param-desc">Internal ID of the contributor</span></div>
+        <div class="def-param-row"><span class="def-param-name">viewer_user_id</span><span class="def-param-desc">Signed-in viewer's ID — null if anonymous</span></div>
+        <div class="def-param-row"><span class="def-param-name">link_placement</span><span class="def-param-desc"><code>contribution_line</code> or <code>contributions_drawer</code></span></div>
+        <div class="def-param-row"><span class="def-param-name">partner_field_name</span><span class="def-param-desc">Partner field label (uppercase)</span></div>
+        <div class="def-param-row"><span class="def-param-name">partner_group</span><span class="def-param-desc">Partner grouping on location profile</span></div>
+        <div class="def-param-row" style="border-bottom:none;"><span class="def-param-name">os_id</span><span class="def-param-desc">OS Hub ID of the production location</span></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Access GA4</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="step" data-id="0" onclick="toggle(0)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Go to <a href="https://analytics.google.com" target="_blank" style="color: var(--blue); text-decoration: underline; text-underline-offset: 2px;">analytics.google.com</a></div>
+        <div class="step-desc">Sign in and confirm from the top-left dropdown for accounts that you're in the production environment — it should say <strong>prod</strong>.</div>
+        <div class="step-footer"><span class="tag tag-nav">Navigate</span><span class="step-num">01</span></div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">View Explorations Report — Partner Link Clicks</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="step" data-id="5" onclick="toggle(5)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Navigate to Explore and open Partner Link Clicks by Group & Contributor</div>
+        <div class="step-desc">In the left-hand nav, click <strong>Explore</strong>. From the list of pre-built reports, select <strong>Partner Link Clicks by Group & Contributor</strong>.</div>
+        <div class="step-footer"><span class="tag tag-report">Explore</span><span class="step-num">06</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="6" onclick="toggle(6)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Make a copy of the report before editing</div>
+        <div class="step-desc">These custom reports are not editable directly. In the top-right corner, click the copy document icon to make your own copy — you'll need to do this before you can set date ranges, add dimensions, or apply any filters.</div>
+        <div class="step-footer"><span class="tag tag-nav">Make a copy</span><span class="step-num">07</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="7" onclick="toggle(7)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Set your date range</div>
+        <div class="step-desc">Start from the Spotlight launch date of <strong>April 29, 2026</strong> to capture only post-launch data. Events won't exist before the new tracking went live.</div>
+        <div class="step-footer"><span class="tag tag-filter">Date filter</span><span class="step-num">08</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="8" onclick="toggle(8)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Add dimensions</div>
+        <div class="step-desc">To add a new dimension: go to the <strong>Variables</strong> section, then under Variables find <strong>Dimensions</strong> and click the <strong>+</strong> icon. Search for and select the dimension you want (e.g. <em>contributor name</em> or <em>link placement</em>), then click <strong>Confirm</strong> in the top right. Once added, the dimension also needs to appear under rows — go to <strong>Settings</strong>, find <strong>Rows</strong>, and select the same dimension there. Repeat for each dimension you want to break down by.</div>
+        <div class="step-footer"><span class="tag tag-filter">Dimensions</span><span class="step-num">09</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">View Explorations Report — Top Outbound Destinations</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="step" data-id="10" onclick="toggle(10)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Navigate to Explore and open the Top Outbound Destinations report</div>
+        <div class="step-desc">Open the <strong>Top Outbound Destinations</strong> pre-built exploration. This report tracks destination URLs users are clicking through to from partner spotlight sections.</div>
+        <div class="step-footer"><span class="tag tag-report">Explore</span><span class="step-num">11</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="11" onclick="toggle(11)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Make a copy of the report before editing</div>
+        <div class="step-desc">These custom reports are not editable directly. In the top-right corner, click the copy document icon to make your own copy — you'll need to do this before you can set date ranges, add dimensions, or apply any filters.</div>
+        <div class="step-footer"><span class="tag tag-nav">Make a copy</span><span class="step-num">12</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="12" onclick="toggle(12)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Set your date range</div>
+        <div class="step-desc">Start from the Spotlight launch date of <strong>April 29, 2026</strong> to capture only post-launch data. Events won't exist before the new tracking went live.</div>
+        <div class="step-footer"><span class="tag tag-filter">Date filter</span><span class="step-num">13</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="13" onclick="toggle(13)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Add dimensions</div>
+        <div class="step-desc">To add a new dimension: go to the <strong>Variables</strong> section, then under Variables find <strong>Dimensions</strong> and click the <strong>+</strong> icon. Search for and select the dimension you want, then click <strong>Confirm</strong> in the top right. Once added, go to <strong>Settings</strong>, find <strong>Rows</strong>, and select the same dimension there. Repeat for each dimension you want to break down by.</div>
+        <div class="step-footer"><span class="tag tag-filter">Dimensions</span><span class="step-num">14</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Save & manage your custom reports</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="step" data-id="14" onclick="toggle(14)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Find your saved copies in Explorations</div>
+        <div class="step-desc">The custom reports you have created are saved in your <strong>Explorations</strong> section in Google Analytics. You can revisit them at any time by navigating back to Explore — your copies will appear in the list alongside the original pre-built reports.</div>
+        <div class="step-footer"><span class="tag tag-report">Explorations</span><span class="step-num">15</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="15" onclick="toggle(15)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Rename your report so it's easy to find later</div>
+        <div class="step-desc">From the Explorations list, find your copied report and click the <strong>More actions</strong> menu (three dots). Select <strong>Rename</strong> and give it a meaningful name — something that describes the date range or focus of your analysis — so you can easily identify and revisit it in the future.</div>
+        <div class="step-footer"><span class="tag tag-nav">Rename</span><span class="step-num">16</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="complete-banner" id="complete-banner">
+    <p>All steps complete ✓</p>
+    <span>Good work — reset below to run through again.</span>
+  </div>
+
+  <div class="footer-actions">
+    <button class="btn" onclick="resetAll()">Reset all</button>
+  </div>
+
+</div>
+
+<script>
+const TOTAL = 16;
+const state = new Array(TOTAL).fill(false);
+let pre0done = false;
+
+function togglePre(id) {
+  pre0done = !pre0done;
+  const el = document.querySelector('.step[data-id="' + id + '"]');
+  el.classList.toggle('done', pre0done);
+  document.getElementById('cb-pre0').classList.toggle('done', pre0done);
+}
+
+function toggle(id) {
+  state[id] = !state[id];
+  const el = document.querySelector('.step[data-id="' + id + '"]');
+  el.classList.toggle('done', state[id]);
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = state.filter(Boolean).length;
+  const pct = Math.round(done / TOTAL * 100);
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = done + ' of ' + TOTAL + ' steps complete';
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('complete-banner').classList.toggle('visible', done === TOTAL);
+}
+
+function switchTab(tab) {
+  document.getElementById('panel-events').style.display = tab === 'events' ? 'block' : 'none';
+  document.getElementById('panel-params').style.display = tab === 'params' ? 'block' : 'none';
+  document.querySelectorAll('.ref-tab').forEach((btn, i) => {
+    btn.classList.toggle('active', (i === 0 && tab === 'events') || (i === 1 && tab === 'params'));
+  });
+}
+
+function resetAll() {
+  for (let i = 0; i < TOTAL; i++) {
+    state[i] = false;
+    const el = document.querySelector('.step[data-id="' + i + '"]');
+    if (el) el.classList.remove('done');
+  }
+  pre0done = false;
+  const pre0el = document.querySelector('.step[data-id="pre0"]');
+  if (pre0el) pre0el.classList.remove('done');
+  const cb = document.getElementById('cb-pre0');
+  if (cb) cb.classList.remove('done');
+  updateProgress();
+}
+</script>
+</body>
+</html>
