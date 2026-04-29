@@ -422,7 +422,7 @@
 
     <div class="progress-wrap">
       <div class="progress-meta">
-        <span class="progress-label" id="prog-label">0 of 14 steps complete</span>
+        <span class="progress-label" id="prog-label">0 of 11 steps complete</span>
         <span class="progress-pct" id="prog-pct">0%</span>
       </div>
       <div class="progress-track">
@@ -517,7 +517,6 @@
       </div>
     </div>
 
-
   </div>
 
   <!-- Section 2 -->
@@ -528,7 +527,7 @@
       <div class="section-line"></div>
     </div>
 
-    <div class="step" data-id="5" onclick="toggle(5)">
+    <div class="step" data-id="1" onclick="toggle(1)">
       <div class="checkbox-wrap">
         <div class="checkbox">
           <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -537,6 +536,67 @@
       <div class="step-body">
         <div class="step-title">Navigate to Explore and open Partner Link Clicks by Group & Contributor</div>
         <div class="step-desc">In the left-hand nav, click <strong>Explore</strong>. From the list of pre-built reports, select <strong>Partner Link Clicks by Group & Contributor</strong>.</div>
+        <div class="step-footer"><span class="tag tag-report">Explore</span><span class="step-num">02</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="2" onclick="toggle(2)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Make a copy of the report before editing</div>
+        <div class="step-desc">These custom reports are not editable directly. In the top-right corner, click the copy document icon to make your own copy — you'll need to do this before you can set date ranges, add dimensions, or apply any filters.</div>
+        <div class="step-footer"><span class="tag tag-nav">Make a copy</span><span class="step-num">03</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="3" onclick="toggle(3)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Set your date range</div>
+        <div class="step-desc">Start from the Spotlight launch date of <strong>April 29, 2026</strong> to capture only post-launch data. Events won't exist before the new tracking went live.</div>
+        <div class="step-footer"><span class="tag tag-filter">Date filter</span><span class="step-num">04</span></div>
+      </div>
+    </div>
+
+    <div class="step" data-id="4" onclick="toggle(4)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Add dimensions</div>
+        <div class="step-desc">To add a new dimension: go to the <strong>Variables</strong> section, then under Variables find <strong>Dimensions</strong> and click the <strong>+</strong> icon. Search for and select the dimension you want (e.g. <em>contributor name</em> or <em>link placement</em>), then click <strong>Confirm</strong> in the top right. Once added, the dimension also needs to appear under rows — go to <strong>Settings</strong>, find <strong>Rows</strong>, and select the same dimension there. Repeat for each dimension you want to break down by.</div>
+        <div class="step-footer"><span class="tag tag-filter">Dimensions</span><span class="step-num">05</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">View Explorations Report — Top Outbound Destinations</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="step" data-id="5" onclick="toggle(5)">
+      <div class="checkbox-wrap">
+        <div class="checkbox">
+          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Navigate to Explore and open the Top Outbound Destinations report</div>
+        <div class="step-desc">Open the <strong>Top Outbound Destinations</strong> pre-built exploration. This report tracks destination URLs users are clicking through to from partner spotlight sections.</div>
         <div class="step-footer"><span class="tag tag-report">Explore</span><span class="step-num">06</span></div>
       </div>
     </div>
@@ -575,69 +635,8 @@
       </div>
       <div class="step-body">
         <div class="step-title">Add dimensions</div>
-        <div class="step-desc">To add a new dimension: go to the <strong>Variables</strong> section, then under Variables find <strong>Dimensions</strong> and click the <strong>+</strong> icon. Search for and select the dimension you want (e.g. <em>contributor name</em> or <em>link placement</em>), then click <strong>Confirm</strong> in the top right. Once added, the dimension also needs to appear under rows — go to <strong>Settings</strong>, find <strong>Rows</strong>, and select the same dimension there. Repeat for each dimension you want to break down by.</div>
-        <div class="step-footer"><span class="tag tag-filter">Dimensions</span><span class="step-num">09</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 3 -->
-  <div class="section">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <span class="section-title">View Explorations Report — Top Outbound Destinations</span>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="step" data-id="10" onclick="toggle(10)">
-      <div class="checkbox-wrap">
-        <div class="checkbox">
-          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-      <div class="step-body">
-        <div class="step-title">Navigate to Explore and open the Top Outbound Destinations report</div>
-        <div class="step-desc">Open the <strong>Top Outbound Destinations</strong> pre-built exploration. This report tracks destination URLs users are clicking through to from partner spotlight sections.</div>
-        <div class="step-footer"><span class="tag tag-report">Explore</span><span class="step-num">11</span></div>
-      </div>
-    </div>
-
-    <div class="step" data-id="11" onclick="toggle(11)">
-      <div class="checkbox-wrap">
-        <div class="checkbox">
-          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-      <div class="step-body">
-        <div class="step-title">Make a copy of the report before editing</div>
-        <div class="step-desc">These custom reports are not editable directly. In the top-right corner, click the copy document icon to make your own copy — you'll need to do this before you can set date ranges, add dimensions, or apply any filters.</div>
-        <div class="step-footer"><span class="tag tag-nav">Make a copy</span><span class="step-num">12</span></div>
-      </div>
-    </div>
-
-    <div class="step" data-id="12" onclick="toggle(12)">
-      <div class="checkbox-wrap">
-        <div class="checkbox">
-          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-      <div class="step-body">
-        <div class="step-title">Set your date range</div>
-        <div class="step-desc">Start from the Spotlight launch date of <strong>April 29, 2026</strong> to capture only post-launch data. Events won't exist before the new tracking went live.</div>
-        <div class="step-footer"><span class="tag tag-filter">Date filter</span><span class="step-num">13</span></div>
-      </div>
-    </div>
-
-    <div class="step" data-id="13" onclick="toggle(13)">
-      <div class="checkbox-wrap">
-        <div class="checkbox">
-          <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </div>
-      <div class="step-body">
-        <div class="step-title">Add dimensions</div>
         <div class="step-desc">To add a new dimension: go to the <strong>Variables</strong> section, then under Variables find <strong>Dimensions</strong> and click the <strong>+</strong> icon. Search for and select the dimension you want, then click <strong>Confirm</strong> in the top right. Once added, go to <strong>Settings</strong>, find <strong>Rows</strong>, and select the same dimension there. Repeat for each dimension you want to break down by.</div>
-        <div class="step-footer"><span class="tag tag-filter">Dimensions</span><span class="step-num">14</span></div>
+        <div class="step-footer"><span class="tag tag-filter">Dimensions</span><span class="step-num">09</span></div>
       </div>
     </div>
   </div>
@@ -650,7 +649,7 @@
       <div class="section-line"></div>
     </div>
 
-    <div class="step" data-id="14" onclick="toggle(14)">
+    <div class="step" data-id="9" onclick="toggle(9)">
       <div class="checkbox-wrap">
         <div class="checkbox">
           <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -659,11 +658,11 @@
       <div class="step-body">
         <div class="step-title">Find your saved copies in Explorations</div>
         <div class="step-desc">The custom reports you have created are saved in your <strong>Explorations</strong> section in Google Analytics. You can revisit them at any time by navigating back to Explore — your copies will appear in the list alongside the original pre-built reports.</div>
-        <div class="step-footer"><span class="tag tag-report">Explorations</span><span class="step-num">15</span></div>
+        <div class="step-footer"><span class="tag tag-report">Explorations</span><span class="step-num">10</span></div>
       </div>
     </div>
 
-    <div class="step" data-id="15" onclick="toggle(15)">
+    <div class="step" data-id="10" onclick="toggle(10)">
       <div class="checkbox-wrap">
         <div class="checkbox">
           <svg class="check-svg" width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.5,8.5 9.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -672,7 +671,7 @@
       <div class="step-body">
         <div class="step-title">Rename your report so it's easy to find later</div>
         <div class="step-desc">From the Explorations list, find your copied report and click the <strong>More actions</strong> menu (three dots). Select <strong>Rename</strong> and give it a meaningful name — something that describes the date range or focus of your analysis — so you can easily identify and revisit it in the future.</div>
-        <div class="step-footer"><span class="tag tag-nav">Rename</span><span class="step-num">16</span></div>
+        <div class="step-footer"><span class="tag tag-nav">Rename</span><span class="step-num">11</span></div>
       </div>
     </div>
   </div>
@@ -689,7 +688,7 @@
 </div>
 
 <script>
-const TOTAL = 16;
+const TOTAL = 11;
 const state = new Array(TOTAL).fill(false);
 let pre0done = false;
 
